@@ -83,9 +83,7 @@ class HPatchesPipeline(EvalPipeline):
         print("model", self.conf.model)
         print("self.conf.checkpoint", self.conf.checkpoint)
         if not pred_file.exists() or overwrite:
-            if model is None:
-                print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-                
+            if model is None:                
                 model = load_model(self.conf.model, self.conf.checkpoint)
             export_predictions(
                 self.get_dataloader(self.conf.data),

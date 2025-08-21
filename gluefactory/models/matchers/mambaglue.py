@@ -691,8 +691,6 @@ class MambaGlue(BaseModel):
             return self._forward(data)
 
     def _forward(self, data: dict) -> dict:
-        print("eu sou apenas um rapaz latino americano sem dinheiro no banco")
-        print("DATA", data.keys())
         for key in self.required_data_keys:
             assert key in data, f"Missing key {key} in data"
         data0, data1 = data["view0"], data["view1"]
