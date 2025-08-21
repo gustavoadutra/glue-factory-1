@@ -80,8 +80,12 @@ class HPatchesPipeline(EvalPipeline):
 
     def get_predictions(self, experiment_dir, model=None, overwrite=False):
         pred_file = experiment_dir / "predictions.h5"
+        print("model", self.conf.model)
+        print("self.conf.checkpoint", self.conf.checkpoint)
         if not pred_file.exists() or overwrite:
             if model is None:
+                print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+                
                 model = load_model(self.conf.model, self.conf.checkpoint)
             export_predictions(
                 self.get_dataloader(self.conf.data),

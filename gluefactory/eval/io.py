@@ -86,7 +86,13 @@ def parse_eval_args(benchmark, args, configs_path, default=None):
 
 
 def load_model(model_conf, checkpoint):
+    print("=="*20)
+    print("Model config:", model_conf)
+    print("Checkpoint:", checkpoint)
     if checkpoint:
+        print("=="*20)
+        print("Loading model from checkpoint:", checkpoint)
+        print("Model config:", model_conf)
         model = load_experiment(checkpoint, conf=model_conf).eval()
     else:
         model = get_model("two_view_pipeline")(model_conf).eval()
