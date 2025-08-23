@@ -36,9 +36,12 @@ def export_predictions(
         pred = model(data)
         print(pred.keys())
         # for each key i want to know the number of elements except if int
+        # if its a list show me len
         for k in pred.keys():
             if not isinstance(pred[k], int):
                 print(f"Number of elements in {k}: {pred[k].shape[0]}")
+            elif isinstance(pred[k], list):
+                print(f"Number of elements in {k}: {len(pred[k])}")
         if callback_fn is not None:
             pred = {**callback_fn(pred, data), **pred}
         if keys != "*":
