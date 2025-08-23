@@ -833,7 +833,7 @@ class MambaGlue(BaseModel):
             "matching_scores1": mscores1,
             "stop": i + 1,
             "matches": matches,
-            "scores": mscores,
+            "log_assignment": mscores,
             "prune0": prune0,
             "prune1": prune1,
         }
