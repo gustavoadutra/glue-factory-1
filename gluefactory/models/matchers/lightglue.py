@@ -527,7 +527,8 @@ class LightGlue(nn.Module):
         else:
             prune0 = torch.ones_like(mscores0) * self.conf.n_layers
             prune1 = torch.ones_like(mscores1) * self.conf.n_layers
-
+        print("==="*20)
+        print(m0, m1)
         pred = {
             "matches0": m0,
             "matches1": m1,
