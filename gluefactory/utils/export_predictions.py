@@ -24,6 +24,7 @@ def export_predictions(
     callback_fn=None,
     optional_keys=[],
 ):
+    print("keys:", keys)
     assert keys == "*" or isinstance(keys, (tuple, list))
     Path(output_file).parent.mkdir(exist_ok=True, parents=True)
     hfile = h5py.File(str(output_file), "w")

@@ -68,7 +68,6 @@ def load_experiment(
     """Load and return the model of a given experiment."""
     exper = Path(exper)
     if exper.suffix != ".tar":
-        print("Loading checkpoint from directory:", exper)
         if get_last:
             ckpt = get_last_checkpoint(exper)
         else:
