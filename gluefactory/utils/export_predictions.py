@@ -35,9 +35,6 @@ def export_predictions(
         data = batch_to_device(data_, device, non_blocking=True)
         pred = model(data)
         print(pred.keys())
-        # for each key i want to know the number of elements
-        for k in pred.keys():
-            print(f"Number of elements in {k}: {pred[k].shape[0]}")
         if callback_fn is not None:
             pred = {**callback_fn(pred, data), **pred}
         if keys != "*":
