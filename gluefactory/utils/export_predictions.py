@@ -39,9 +39,13 @@ def export_predictions(
         # if its a list show me len
         for k in pred.keys():
             if isinstance(pred[k], list):
-                print(f"Number of elements in {k}: {len(pred[k])}")
-            elif not isinstance(pred[k], int):
-                print(f"Number of elements in {k}: {pred[k].shape[0]}")
+                print(f"{k}: list of length {len(pred[k])}")
+            if len(pred[k]) > 0 and hasattr(pred[k][0], 'shape'):
+                print(f"  First element shape: {pred[k][0].shape}")
+            elif hasattr(pred[k], 'shape'):
+                print(f"{k}: shape {pred[k].shape}")
+            else:
+                print(f"{k}: type {type(pred[k])}")
 
         if callback_fn is not None:
             pred = {**callback_fn(pred, data), **pred}
