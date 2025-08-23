@@ -38,6 +38,8 @@ def export_predictions(
         # for each key i want to know the number of elements except if int
         # if its a list show me len
         for k in pred.keys():
+            if isinstance(pred[k], int):
+                print(f"{k}: int {pred[k]}")
             if isinstance(pred[k], list):
                 print(f"{k}: list of length {len(pred[k])}")
             if len(pred[k]) > 0 and hasattr(pred[k][0], 'shape'):
