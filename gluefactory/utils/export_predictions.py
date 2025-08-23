@@ -40,14 +40,15 @@ def export_predictions(
         for k in pred.keys():
             if isinstance(pred[k], int):
                 print(f"{k}: int {pred[k]}")
-            if isinstance(pred[k], list):
-                print(f"{k}: list of length {len(pred[k])}")
-            if len(pred[k]) > 0 and hasattr(pred[k][0], 'shape'):
-                print(f"  First element shape: {pred[k][0].shape}")
-            elif hasattr(pred[k], 'shape'):
-                print(f"{k}: shape {pred[k].shape}")
             else:
-                print(f"{k}: type {type(pred[k])}")
+                if isinstance(pred[k], list):
+                    print(f"{k}: list of length {len(pred[k])}")
+                if len(pred[k]) > 0 and hasattr(pred[k][0], 'shape'):
+                    print(f"  First element shape: {pred[k][0].shape}")
+                elif hasattr(pred[k], 'shape'):
+                    print(f"{k}: shape {pred[k].shape}")
+                else:
+                    print(f"{k}: type {type(pred[k])}")
 
         if callback_fn is not None:
             pred = {**callback_fn(pred, data), **pred}
