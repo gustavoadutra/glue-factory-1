@@ -626,7 +626,7 @@ class MambaGlue(BaseModel):
 
             # Load the state dict into your model
             self.load_state_dict(state_dict, strict=False)
-            print("Modelo baixado:", fname)
+            print("Modelo baixado:", state_dict)
         elif conf.weights is not None:
             path = Path(__file__).parent
             path = path / "weights/{}.pth".format(self.conf.weights)
