@@ -734,6 +734,7 @@ class MambaGlue(BaseModel):
 
         # Convert to half precision if enabled
         if torch.is_autocast_enabled():
+            print("==Half precision==")
             desc0 = desc0.half()
             desc1 = desc1.half()
 
