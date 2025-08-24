@@ -665,44 +665,22 @@ class MambaGlue(BaseModel):
 
     def forward(self, data: dict) -> dict:
         """
-        Match keypoints and descriptors between two images
-
-        Input (dict):
-            view0: dict
-                keypoints: [B x M x 2]
-                descriptors: [B x M x D]
-                image: [B x C x H x W] or image_size: [B x 2]
-            view1: dict
-                keypoints: [B x N x 2]
-                descriptors: [B x N x D]
-                image: [B x C x H x W] or image_size: [B x 2]
-        Output (dict):
-            matches0: [B x M]
-            matching_scores0: [B x M]
-            matches1: [B x N]
-            matching_scores1: [B x N]
-            matches: List[[Si x 2]]
-            scores: List[[Si]]
-            stop: int
-            prune0: [B x M]
-            prune1: [B x N]
+            Match keypoints and descriptors between two images
         """
-        print("FORWARD TOMAR NO MEIO DO TEU CU")
-        print(data.keys())
         required_keys = ["keypoints", "descriptors", "scales", "oris"]
-        print("view0", data["view0"])
-        print("view1", data["view1"])
+        # merge any top-level per-view keys (keypoints0, descriptors0, ...)
         view0 = {
-            **data["view0"],
+            **data.get("view0", {}),
             **{k: data[k + "0"] for k in required_keys if (k + "0") in data},
         }
         view1 = {
-            **data["view1"],
+            **data.get("view1", {}),
             **{k: data[k + "1"] for k in required_keys if (k + "1") in data},
         }
 
+        # _forward expects keys "view0" and "view1"
         with torch.autocast(enabled=self.conf.mp, device_type="cuda"):
-            return self._forward({"image0": view0, "image1": view1})
+            return self._forward({"view0": view0, "view1": view1})
 
     def _forward(self, data: dict) -> dict:
         for key in self.required_data_keys:
