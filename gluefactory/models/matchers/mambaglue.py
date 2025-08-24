@@ -835,6 +835,7 @@ class MambaGlue(BaseModel):
         m0, m1, mscores0, mscores1 = filter_matches(scores, self.conf.filter_threshold)
         print("==Matches First==")
         print(m0, m1)
+        print(mscores0, mscores1)
         matches, mscores = [], []
         for k in range(b):
             valid = m0[k] > -1
