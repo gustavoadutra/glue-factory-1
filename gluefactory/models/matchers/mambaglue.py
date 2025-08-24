@@ -728,6 +728,9 @@ class MambaGlue(BaseModel):
         assert desc0.shape[-1] == self.conf.input_dim
         assert desc1.shape[-1] == self.conf.input_dim
 
+        print("==Descriptors shape==")
+        print(desc0.shape, desc1.shape)
+
         if torch.is_autocast_enabled():
             desc0 = desc0.half()
             desc1 = desc1.half()
