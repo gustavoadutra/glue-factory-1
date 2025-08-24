@@ -690,6 +690,8 @@ class MambaGlue(BaseModel):
         print("FORWARD TOMAR NO MEIO DO TEU CU")
         print(data.keys())
         required_keys = ["keypoints", "descriptors", "scales", "oris"]
+        print("view0", view0)
+        print("view1", view1)
         view0 = {
             **data["view0"],
             **{k: data[k + "0"] for k in required_keys if (k + "0") in data},
