@@ -712,9 +712,8 @@ class MambaGlue(BaseModel):
         print(kpts0.shape, kpts1.shape)
         device = kpts0.device
         #size0, size1 = data0.get("image_size"), data1.get("image_size")
-        if "view0" in data.keys() and "view1" in data.keys():
-            size0 = data["view0"].get("image_size")
-            size1 = data["view1"].get("image_size")
+        size0 = 640
+        size1 = 480 
         print(size0, size1)
         kpts0 = normalize_keypoints(kpts0, size0).clone()
         kpts1 = normalize_keypoints(kpts1, size1).clone()
