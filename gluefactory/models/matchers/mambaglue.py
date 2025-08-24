@@ -687,12 +687,8 @@ class MambaGlue(BaseModel):
             prune0: [B x M]
             prune1: [B x N]
         """
-        print("FORWARD TOMAR NO MEIO DO TEU CU")
-        print(data.keys())
         required_keys = ["keypoints", "descriptors", "scales", "oris"]
         
-        #print("view0", data["view0"])
-        #print("view1", data["view1"])
         view0 = {
             **data["view0"],
             **{k: data[k + "0"] for k in required_keys if (k + "0") in data},
@@ -712,6 +708,8 @@ class MambaGlue(BaseModel):
         kpts0, kpts1 = data0["keypoints"], data1["keypoints"]
         b, m, _ = kpts0.shape
         b, n, _ = kpts1.shape
+        print("==Keypoints shape==")
+        print(kpts0.shape, kpts1.shape)
         device = kpts0.device
         size0, size1 = data0.get("image_size"), data1.get("image_size")
         kpts0 = normalize_keypoints(kpts0, size0).clone()
