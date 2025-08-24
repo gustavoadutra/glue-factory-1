@@ -21,6 +21,7 @@ class LightGlue(BaseModel):
         self.set_initialized()
 
     def _forward(self, data):
+        print(data.keys())
         required_keys = ["keypoints", "descriptors", "scales", "oris"]
         view0 = {
             **data["view0"],
