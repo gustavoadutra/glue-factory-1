@@ -787,6 +787,7 @@ class MambaGlue(BaseModel):
                 continue  # no early stopping or adaptive width at last layer
 
             if do_early_stop:
+                print("EARLY STOPPING")
                 token0, token1 = self.token_confidence[i](desc0, desc1)
                 if self.check_if_stop(token0[..., :m], token1[..., :n], i, m + n):
                     break
@@ -809,6 +810,7 @@ class MambaGlue(BaseModel):
         print("==After GNN==")
         print(desc0.shape, desc1.shape)
         if desc0.shape[1] == 0 or desc1.shape[1] == 0:  # no keypoints
+            print("================================================================")
             print("No keypoints found")
             m0 = desc0.new_full((b, m), -1, dtype=torch.long)
             m1 = desc1.new_full((b, n), -1, dtype=torch.long)
