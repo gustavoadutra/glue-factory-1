@@ -516,7 +516,7 @@ class MambaGlue(BaseModel):
         "flash": 1536,
     }
 
-    required_data_keys = ["view0", "view1"]
+    required_data_keys = ["image0", "image1"]
 
     version = "v0.1"
     url = "https://github.com/url-kaist/MambaGlue/releases/download/{}/{}_mambaglue.tar"  # (will be) releases/v0.1/superpoint_mambaglue.tar
