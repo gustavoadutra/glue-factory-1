@@ -687,7 +687,14 @@ class MambaGlue(BaseModel):
             prune0: [B x M]
             prune1: [B x N]
         """
-        required_keys = ["keypoints", "descriptors", "scales", "oris"]
+        required_keys = [
+            "view0",
+            "keypoints0",
+            "descriptors0",
+            "view1",
+            "keypoints1",
+            "descriptors1",
+        ]
         
         view0 = {
             **data["view0"],
@@ -749,6 +756,7 @@ class MambaGlue(BaseModel):
             desc1, mask1 = pad_to_length(desc1, kn)
             kpts0, _ = pad_to_length(kpts0, kn)
             kpts1, _ = pad_to_length(kpts1, kn)
+            
         desc0 = self.input_proj(desc0)
         desc1 = self.input_proj(desc1)
         print("==After input projection==")
@@ -781,6 +789,7 @@ class MambaGlue(BaseModel):
             desc0, desc1 = self.transformermambas[i](
                 desc0, desc1, encoding0, encoding1, mask0=mask0, mask1=mask1
             )
+            print(desc0, desc1)
             if i == self.conf.n_layers - 1:
                 continue  # no early stopping or adaptive width at last layer
 
