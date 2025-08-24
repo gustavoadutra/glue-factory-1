@@ -731,6 +731,7 @@ class MambaGlue(BaseModel):
         print("==Descriptors shape==")
         print(desc0.shape, desc1.shape)
 
+        # Convert to half precision if enabled
         if torch.is_autocast_enabled():
             desc0 = desc0.half()
             desc1 = desc1.half()
@@ -739,6 +740,7 @@ class MambaGlue(BaseModel):
         c = max(m, n)
         do_compile = self.static_lengths and c <= max(self.static_lengths)
         # do_compile = False
+        print("Compile?", do_compile)
         if do_compile:
             kn = min([k for k in self.static_lengths if k >= c])
             desc0, mask0 = pad_to_length(desc0, kn)
