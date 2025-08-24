@@ -410,6 +410,8 @@ class LightGlue(nn.Module):
             )
 
     def forward(self, data: dict) -> dict:
+        print("DATA:", data.keys())
+
         for key in self.required_data_keys:
             assert key in data, f"Missing key {key} in data"
 

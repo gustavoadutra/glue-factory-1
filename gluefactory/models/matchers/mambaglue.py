@@ -687,14 +687,24 @@ class MambaGlue(BaseModel):
             prune0: [B x M]
             prune1: [B x N]
         """
+        required_keys = ["keypoints", "descriptors", "scales", "oris"]
+        view0 = {
+            **data["view0"],
+            **{k: data[k + "0"] for k in required_keys if (k + "0") in data},
+        }
+        view1 = {
+            **data["view1"],
+            **{k: data[k + "1"] for k in required_keys if (k + "1") in data},
+        }
+
         with torch.autocast(enabled=self.conf.mp, device_type="cuda"):
-            return self._forward(data)
+            return self._forward({"image0": view0, "image1": view1})
 
     def _forward(self, data: dict) -> dict:
         for key in self.required_data_keys:
             assert key in data, f"Missing key {key} in data"
-        data0, data1 = data["view0"], data["view1"]
-        kpts0, kpts1 = data["keypoints0"], data["keypoints1"]
+        data0, data1 = data["image0"], data["image1"]
+        kpts0, kpts1 = data0["keypoints"], data1["keypoints"]
         b, m, _ = kpts0.shape
         b, n, _ = kpts1.shape
         device = kpts0.device
@@ -709,8 +719,8 @@ class MambaGlue(BaseModel):
             kpts1 = torch.cat(
                 [kpts1] + [data1[k].unsqueeze(-1) for k in ("scales", "oris")], -1
             )
-        desc0 = data["descriptors0"].detach().contiguous()
-        desc1 = data["descriptors1"].detach().contiguous()
+        desc0 = data0["descriptors"].detach().contiguous()
+        desc1 = data1["descriptors"].detach().contiguous()
 
         assert desc0.shape[-1] == self.conf.input_dim
         assert desc1.shape[-1] == self.conf.input_dim
@@ -825,8 +835,7 @@ class MambaGlue(BaseModel):
         else:
             prune0 = torch.ones_like(mscores0) * self.conf.n_layers
             prune1 = torch.ones_like(mscores1) * self.conf.n_layers
-        print("==="*20)
-        print(m0, m1)
+
         return {
             "matches0": m0,
             "matches1": m1,
@@ -834,7 +843,7 @@ class MambaGlue(BaseModel):
             "matching_scores1": mscores1,
             "stop": i + 1,
             "matches": matches,
-            "log_assignment": mscores,
+            "scores": mscores,
             "prune0": prune0,
             "prune1": prune1,
         }
