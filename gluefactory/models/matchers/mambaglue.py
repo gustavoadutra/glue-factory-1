@@ -687,6 +687,7 @@ class MambaGlue(BaseModel):
             prune0: [B x M]
             prune1: [B x N]
         """
+        print("FORWARD TOMAR NO MEIO DO TEU CU")
         print(data.keys())
         required_keys = ["keypoints", "descriptors", "scales", "oris"]
         view0 = {
