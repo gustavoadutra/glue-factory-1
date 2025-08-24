@@ -806,7 +806,6 @@ class MambaGlue(BaseModel):
         print("==After GNN==")
         print(desc0.shape, desc1.shape)
         if desc0.shape[1] == 0 or desc1.shape[1] == 0:  # no keypoints
-            print("aaaaaaaaaaa"*20)
             print("No keypoints found")
             m0 = desc0.new_full((b, m), -1, dtype=torch.long)
             m1 = desc1.new_full((b, n), -1, dtype=torch.long)

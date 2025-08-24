@@ -515,6 +515,9 @@ class LightGlue(nn.Module):
         desc0, desc1 = desc0[..., :m, :], desc1[..., :n, :]
         scores, _ = self.log_assignment[i](desc0, desc1)
         m0, m1, mscores0, mscores1 = filter_matches(scores, self.conf.filter_threshold)
+        print("==Matches First==")
+        print(m0, m1)
+        print(mscores0, mscores1)
 
         if do_point_pruning:
             m0_ = torch.full((b, m), -1, device=m0.device, dtype=m0.dtype)
