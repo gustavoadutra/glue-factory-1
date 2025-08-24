@@ -741,6 +741,7 @@ class MambaGlue(BaseModel):
         do_compile = self.static_lengths and c <= max(self.static_lengths)
         # do_compile = False
         print("Compile?", do_compile)
+        # Default do not compile
         if do_compile:
             kn = min([k for k in self.static_lengths if k >= c])
             desc0, mask0 = pad_to_length(desc0, kn)
@@ -749,9 +750,12 @@ class MambaGlue(BaseModel):
             kpts1, _ = pad_to_length(kpts1, kn)
         desc0 = self.input_proj(desc0)
         desc1 = self.input_proj(desc1)
+        print("==After input projection==")
+        print(desc0.shape, desc1.shape)
         # cache positional embeddings
         encoding0 = self.posenc(kpts0)
         encoding1 = self.posenc(kpts1)
+        print(encoding0.shape, encoding1.shape)
 
         # GNN + final_proj + assignment
         do_early_stop = self.conf.depth_confidence > 0
