@@ -756,6 +756,8 @@ class MambaGlue(BaseModel):
         do_point_pruning = self.conf.width_confidence > 0 and not do_compile
         pruning_th = self.pruning_min_kpts(device)
         if do_point_pruning:
+            print("==Pruning==")
+            print("Threshold:", pruning_th)
             ind0 = torch.arange(0, m, device=device)[None]
             ind1 = torch.arange(0, n, device=device)[None]
             # We store the index of the layer at which pruning is detected.
@@ -764,6 +766,7 @@ class MambaGlue(BaseModel):
         token0, token1 = None, None
         for i in range(self.conf.n_layers):
             if desc0.shape[1] == 0 or desc1.shape[1] == 0:  # no keypoints
+                print("No keypoints found")
                 break
             desc0, desc1 = self.transformermambas[i](
                 desc0, desc1, encoding0, encoding1, mask0=mask0, mask1=mask1
@@ -793,6 +796,7 @@ class MambaGlue(BaseModel):
                 prune1[:, ind1] += 1
 
         if desc0.shape[1] == 0 or desc1.shape[1] == 0:  # no keypoints
+            print("No keypoints found")
             m0 = desc0.new_full((b, m), -1, dtype=torch.long)
             m1 = desc1.new_full((b, n), -1, dtype=torch.long)
             mscores0 = desc0.new_zeros((b, m))
@@ -802,6 +806,7 @@ class MambaGlue(BaseModel):
             if not do_point_pruning:
                 prune0 = torch.ones_like(mscores0) * self.conf.n_layers
                 prune1 = torch.ones_like(mscores1) * self.conf.n_layers
+                print("Pruning layers:", prune0, prune1)
             return {
                 "matches0": m0,
                 "matches1": m1,
