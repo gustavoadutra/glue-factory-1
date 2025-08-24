@@ -846,7 +846,8 @@ class MambaGlue(BaseModel):
         else:
             prune0 = torch.ones_like(mscores0) * self.conf.n_layers
             prune1 = torch.ones_like(mscores1) * self.conf.n_layers
-
+        print("==Matches==")
+        print(m0, m1)
         return {
             "matches0": m0,
             "matches1": m1,
