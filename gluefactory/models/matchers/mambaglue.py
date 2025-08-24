@@ -704,7 +704,7 @@ class MambaGlue(BaseModel):
     def _forward(self, data: dict) -> dict:
         for key in self.required_data_keys:
             assert key in data, f"Missing key {key} in data"
-        data0, data1 = data["image0"], data["image1"]
+        data0, data1 = data["view0"], data["view1"]
         kpts0, kpts1 = data0["keypoints"], data1["keypoints"]
         b, m, _ = kpts0.shape
         b, n, _ = kpts1.shape
