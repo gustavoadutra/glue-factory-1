@@ -759,6 +759,9 @@ class MambaGlue(BaseModel):
 
         # GNN + final_proj + assignment
         do_early_stop = self.conf.depth_confidence > 0
+        print("==Early stopping==")
+        print(self.conf.depth_confidence)
+        print("Enabled:", do_early_stop)
         do_point_pruning = self.conf.width_confidence > 0 and not do_compile
         pruning_th = self.pruning_min_kpts(device)
         if do_point_pruning:
