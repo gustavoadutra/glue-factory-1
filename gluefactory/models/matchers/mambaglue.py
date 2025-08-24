@@ -836,6 +836,7 @@ class MambaGlue(BaseModel):
         print("Scores my friend: ")
         print(scores)
         print(torch.mean(scores))
+        print(torch.std(scores))
         m0, m1, mscores0, mscores1 = filter_matches(scores, self.conf.filter_threshold)
         print("==Matches First==")
         print(m0, m1)
