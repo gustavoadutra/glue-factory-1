@@ -501,8 +501,8 @@ class MambaGlue(BaseModel):
         "num_heads": 4,
         "flash": True,  # enable FlashAttention if available.
         "mp": False,  # enable mixed precision
-        "depth_confidence": -1,  # early stopping, disable with -1
-        "width_confidence": -1,  # point pruning, disable with -1
+        "depth_confidence": 0.5,  # early stopping, disable with -1
+        "width_confidence": 0.5,  # point pruning, disable with -1
         "filter_threshold": 0.01,  # match threshold
         "weights": None,
     }
