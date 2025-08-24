@@ -781,7 +781,6 @@ class MambaGlue(BaseModel):
             desc0, desc1 = self.transformermambas[i](
                 desc0, desc1, encoding0, encoding1, mask0=mask0, mask1=mask1
             )
-            print(desc0, desc1)
             if i == self.conf.n_layers - 1:
                 continue  # no early stopping or adaptive width at last layer
 
