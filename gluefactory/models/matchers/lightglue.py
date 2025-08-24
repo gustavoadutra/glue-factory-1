@@ -514,6 +514,8 @@ class LightGlue(nn.Module):
 
         desc0, desc1 = desc0[..., :m, :], desc1[..., :n, :]
         scores, _ = self.log_assignment[i](desc0, desc1)
+        print("Scores my friend: ")
+        print(scores)
         m0, m1, mscores0, mscores1 = filter_matches(scores, self.conf.filter_threshold)
         print("==Matches First==")
         print(m0, m1)
