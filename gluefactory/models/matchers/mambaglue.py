@@ -548,9 +548,7 @@ class MambaGlue(BaseModel):
     }
 
     def _init(self, conf) -> None:
-        print("features ahiba", self.features)
         features = "superpoint"
-        print("features agora", features)
         self.conf = conf = SimpleNamespace(**{**self.default_conf, **conf})
         #self.conf = conf = OmegaConf.merge(self.default_conf, conf)
         if features is not None:
