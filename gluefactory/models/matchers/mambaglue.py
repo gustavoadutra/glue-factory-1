@@ -843,6 +843,7 @@ class MambaGlue(BaseModel):
         print("==Matches First==")
         print(m0, m1)
         print(mscores0, mscores1)
+        return 0
         matches, mscores = [], []
         for k in range(b):
             valid = m0[k] > -1
