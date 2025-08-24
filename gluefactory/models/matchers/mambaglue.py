@@ -693,7 +693,6 @@ class MambaGlue(BaseModel):
         
         #print("view0", data["view0"])
         #print("view1", data["view1"])
-        print("view0 keys", **data["view0"])
         view0 = {
             **data["view0"],
             **{k: data[k + "0"] for k in required_keys if (k + "0") in data},
