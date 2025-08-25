@@ -10,7 +10,7 @@ model:
       features: superpoint
       depth_confidence: -1
       width_confidence: -1
-      filter_threshold: 0.1
+      filter_threshold: 0.0
 benchmarks:
     megadepth1500:
       data:
